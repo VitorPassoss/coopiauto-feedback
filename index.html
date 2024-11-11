@@ -1,0 +1,1863 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script>
+        <script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let i;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",i=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")&&this._isValidScriptType(i)?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}_isValidScriptType(e){return!e||""===e||"string"==typeof e&&["text/javascript","text/x-javascript","text/ecmascript","text/jscript","application/javascript","application/x-javascript","application/ecmascript","application/jscript","module"].includes(e.toLowerCase())}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){const n=e[t];Object.defineProperty(e,t,{get:n||function(){},set:n=>{e["rocket"+t]=n}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,i=document.createRange(),r=n.parentElement;let a=e.get(n);void 0===a&&(a=n.nextSibling,e.set(n,a));const o=document.createDocumentFragment();i.setStart(o,0),o.appendChild(i.createContextualFragment(t)),r.insertBefore(o,a)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mouseover","touchmove","touchstart","touchend","touchcancel","touchforcechange","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="profile" href="https://gmpg.org/xfn/11">
+        <title>Compre Online Black Friday &#8211; Autoescola Destaque</title>
+        <meta name="robots" content="max-image-preview:large">
+        <link rel="dns-prefetch" href="//stats.wp.com">
+        <link href="https://fonts.gstatic.com" crossorigin rel="preconnect">
+        <style>
+            body {
+                background-color: #ffffff !important;
+            }
+        </style>
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Feed para Autoescola Destaque &raquo;"
+            href="https://autoescoladestaque.com.br/feed/"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="dce-dynamic-visibility-style-css"
+            href="./wp-content/cache/min/1/wp-content/plugins/dynamic-visibility-for-elementor/assets/css/dynamic-visibility.css?ver=1709042855"
+            media="all"
+        >
+        <style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+        </style>
+        <style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+        </style>
+        <style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+        </style>
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="woocommerce-layout-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="woocommerce-smallscreen-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/woocommerce/assets/css/woocommerce-smallscreen.css?ver=1709042855"
+            media="only screen and (max-width: 768px)"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="woocommerce-general-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=1709042855"
+            media="all"
+        >
+        <style id="woocommerce-inline-inline-css">
+.woocommerce form .form-row .required { visibility: visible; }
+        </style>
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="eef-frontend-style-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/extensions-for-elementor-form/assets/style.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="hello-elementor-css"
+            href="https://autoescoladestaque.com.br/wp-content/themes/hello-elementor/style.min.css?ver=3.0.1"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="hello-elementor-theme-style-css"
+            href="https://autoescoladestaque.com.br/wp-content/themes/hello-elementor/theme.min.css?ver=3.0.1"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="hello-elementor-header-footer-css"
+            href="https://autoescoladestaque.com.br/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.0.1"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="elementor-frontend-css"
+            href="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/css/frontend-lite.min.css?ver=3.19.0"
+            media="all"
+        >
+        <style id="elementor-frontend-inline-css">
+@-webkit-keyframes ha_fadeIn{0%{opacity:0}to{opacity:1}}@keyframes ha_fadeIn{0%{opacity:0}to{opacity:1}}@-webkit-keyframes ha_zoomIn{0%{opacity:0;-webkit-transform:scale3d(.3,.3,.3);transform:scale3d(.3,.3,.3)}50%{opacity:1}}@keyframes ha_zoomIn{0%{opacity:0;-webkit-transform:scale3d(.3,.3,.3);transform:scale3d(.3,.3,.3)}50%{opacity:1}}@-webkit-keyframes ha_rollIn{0%{opacity:0;-webkit-transform:translate3d(-100%,0,0) rotate3d(0,0,1,-120deg);transform:translate3d(-100%,0,0) rotate3d(0,0,1,-120deg)}to{opacity:1}}@keyframes ha_rollIn{0%{opacity:0;-webkit-transform:translate3d(-100%,0,0) rotate3d(0,0,1,-120deg);transform:translate3d(-100%,0,0) rotate3d(0,0,1,-120deg)}to{opacity:1}}@-webkit-keyframes ha_bounce{0%,20%,53%,to{-webkit-animation-timing-function:cubic-bezier(.215,.61,.355,1);animation-timing-function:cubic-bezier(.215,.61,.355,1)}40%,43%{-webkit-transform:translate3d(0,-30px,0) scaleY(1.1);transform:translate3d(0,-30px,0) scaleY(1.1);-webkit-animation-timing-function:cubic-bezier(.755,.05,.855,.06);animation-timing-function:cubic-bezier(.755,.05,.855,.06)}70%{-webkit-transform:translate3d(0,-15px,0) scaleY(1.05);transform:translate3d(0,-15px,0) scaleY(1.05);-webkit-animation-timing-function:cubic-bezier(.755,.05,.855,.06);animation-timing-function:cubic-bezier(.755,.05,.855,.06)}80%{-webkit-transition-timing-function:cubic-bezier(.215,.61,.355,1);transition-timing-function:cubic-bezier(.215,.61,.355,1);-webkit-transform:translate3d(0,0,0) scaleY(.95);transform:translate3d(0,0,0) scaleY(.95)}90%{-webkit-transform:translate3d(0,-4px,0) scaleY(1.02);transform:translate3d(0,-4px,0) scaleY(1.02)}}@keyframes ha_bounce{0%,20%,53%,to{-webkit-animation-timing-function:cubic-bezier(.215,.61,.355,1);animation-timing-function:cubic-bezier(.215,.61,.355,1)}40%,43%{-webkit-transform:translate3d(0,-30px,0) scaleY(1.1);transform:translate3d(0,-30px,0) scaleY(1.1);-webkit-animation-timing-function:cubic-bezier(.755,.05,.855,.06);animation-timing-function:cubic-bezier(.755,.05,.855,.06)}70%{-webkit-transform:translate3d(0,-15px,0) scaleY(1.05);transform:translate3d(0,-15px,0) scaleY(1.05);-webkit-animation-timing-function:cubic-bezier(.755,.05,.855,.06);animation-timing-function:cubic-bezier(.755,.05,.855,.06)}80%{-webkit-transition-timing-function:cubic-bezier(.215,.61,.355,1);transition-timing-function:cubic-bezier(.215,.61,.355,1);-webkit-transform:translate3d(0,0,0) scaleY(.95);transform:translate3d(0,0,0) scaleY(.95)}90%{-webkit-transform:translate3d(0,-4px,0) scaleY(1.02);transform:translate3d(0,-4px,0) scaleY(1.02)}}@-webkit-keyframes ha_bounceIn{0%,20%,40%,60%,80%,to{-webkit-animation-timing-function:cubic-bezier(.215,.61,.355,1);animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;-webkit-transform:scale3d(.3,.3,.3);transform:scale3d(.3,.3,.3)}20%{-webkit-transform:scale3d(1.1,1.1,1.1);transform:scale3d(1.1,1.1,1.1)}40%{-webkit-transform:scale3d(.9,.9,.9);transform:scale3d(.9,.9,.9)}60%{opacity:1;-webkit-transform:scale3d(1.03,1.03,1.03);transform:scale3d(1.03,1.03,1.03)}80%{-webkit-transform:scale3d(.97,.97,.97);transform:scale3d(.97,.97,.97)}to{opacity:1}}@keyframes ha_bounceIn{0%,20%,40%,60%,80%,to{-webkit-animation-timing-function:cubic-bezier(.215,.61,.355,1);animation-timing-function:cubic-bezier(.215,.61,.355,1)}0%{opacity:0;-webkit-transform:scale3d(.3,.3,.3);transform:scale3d(.3,.3,.3)}20%{-webkit-transform:scale3d(1.1,1.1,1.1);transform:scale3d(1.1,1.1,1.1)}40%{-webkit-transform:scale3d(.9,.9,.9);transform:scale3d(.9,.9,.9)}60%{opacity:1;-webkit-transform:scale3d(1.03,1.03,1.03);transform:scale3d(1.03,1.03,1.03)}80%{-webkit-transform:scale3d(.97,.97,.97);transform:scale3d(.97,.97,.97)}to{opacity:1}}@-webkit-keyframes ha_flipInX{0%{opacity:0;-webkit-transform:perspective(400px) rotate3d(1,0,0,90deg);transform:perspective(400px) rotate3d(1,0,0,90deg);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}40%{-webkit-transform:perspective(400px) rotate3d(1,0,0,-20deg);transform:perspective(400px) rotate3d(1,0,0,-20deg);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}60%{opacity:1;-webkit-transform:perspective(400px) rotate3d(1,0,0,10deg);transform:perspective(400px) rotate3d(1,0,0,10deg)}80%{-webkit-transform:perspective(400px) rotate3d(1,0,0,-5deg);transform:perspective(400px) rotate3d(1,0,0,-5deg)}}@keyframes ha_flipInX{0%{opacity:0;-webkit-transform:perspective(400px) rotate3d(1,0,0,90deg);transform:perspective(400px) rotate3d(1,0,0,90deg);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}40%{-webkit-transform:perspective(400px) rotate3d(1,0,0,-20deg);transform:perspective(400px) rotate3d(1,0,0,-20deg);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}60%{opacity:1;-webkit-transform:perspective(400px) rotate3d(1,0,0,10deg);transform:perspective(400px) rotate3d(1,0,0,10deg)}80%{-webkit-transform:perspective(400px) rotate3d(1,0,0,-5deg);transform:perspective(400px) rotate3d(1,0,0,-5deg)}}@-webkit-keyframes ha_flipInY{0%{opacity:0;-webkit-transform:perspective(400px) rotate3d(0,1,0,90deg);transform:perspective(400px) rotate3d(0,1,0,90deg);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}40%{-webkit-transform:perspective(400px) rotate3d(0,1,0,-20deg);transform:perspective(400px) rotate3d(0,1,0,-20deg);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}60%{opacity:1;-webkit-transform:perspective(400px) rotate3d(0,1,0,10deg);transform:perspective(400px) rotate3d(0,1,0,10deg)}80%{-webkit-transform:perspective(400px) rotate3d(0,1,0,-5deg);transform:perspective(400px) rotate3d(0,1,0,-5deg)}}@keyframes ha_flipInY{0%{opacity:0;-webkit-transform:perspective(400px) rotate3d(0,1,0,90deg);transform:perspective(400px) rotate3d(0,1,0,90deg);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}40%{-webkit-transform:perspective(400px) rotate3d(0,1,0,-20deg);transform:perspective(400px) rotate3d(0,1,0,-20deg);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}60%{opacity:1;-webkit-transform:perspective(400px) rotate3d(0,1,0,10deg);transform:perspective(400px) rotate3d(0,1,0,10deg)}80%{-webkit-transform:perspective(400px) rotate3d(0,1,0,-5deg);transform:perspective(400px) rotate3d(0,1,0,-5deg)}}@-webkit-keyframes ha_swing{20%{-webkit-transform:rotate3d(0,0,1,15deg);transform:rotate3d(0,0,1,15deg)}40%{-webkit-transform:rotate3d(0,0,1,-10deg);transform:rotate3d(0,0,1,-10deg)}60%{-webkit-transform:rotate3d(0,0,1,5deg);transform:rotate3d(0,0,1,5deg)}80%{-webkit-transform:rotate3d(0,0,1,-5deg);transform:rotate3d(0,0,1,-5deg)}}@keyframes ha_swing{20%{-webkit-transform:rotate3d(0,0,1,15deg);transform:rotate3d(0,0,1,15deg)}40%{-webkit-transform:rotate3d(0,0,1,-10deg);transform:rotate3d(0,0,1,-10deg)}60%{-webkit-transform:rotate3d(0,0,1,5deg);transform:rotate3d(0,0,1,5deg)}80%{-webkit-transform:rotate3d(0,0,1,-5deg);transform:rotate3d(0,0,1,-5deg)}}@-webkit-keyframes ha_slideInDown{0%{visibility:visible;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}}@keyframes ha_slideInDown{0%{visibility:visible;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}}@-webkit-keyframes ha_slideInUp{0%{visibility:visible;-webkit-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0)}}@keyframes ha_slideInUp{0%{visibility:visible;-webkit-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0)}}@-webkit-keyframes ha_slideInLeft{0%{visibility:visible;-webkit-transform:translate3d(-100%,0,0);transform:translate3d(-100%,0,0)}}@keyframes ha_slideInLeft{0%{visibility:visible;-webkit-transform:translate3d(-100%,0,0);transform:translate3d(-100%,0,0)}}@-webkit-keyframes ha_slideInRight{0%{visibility:visible;-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}}@keyframes ha_slideInRight{0%{visibility:visible;-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}}.ha_fadeIn{-webkit-animation-name:ha_fadeIn;animation-name:ha_fadeIn}.ha_zoomIn{-webkit-animation-name:ha_zoomIn;animation-name:ha_zoomIn}.ha_rollIn{-webkit-animation-name:ha_rollIn;animation-name:ha_rollIn}.ha_bounce{-webkit-transform-origin:center bottom;-ms-transform-origin:center bottom;transform-origin:center bottom;-webkit-animation-name:ha_bounce;animation-name:ha_bounce}.ha_bounceIn{-webkit-animation-name:ha_bounceIn;animation-name:ha_bounceIn;-webkit-animation-duration:.75s;-webkit-animation-duration:calc(var(--animate-duration)*.75);animation-duration:.75s;animation-duration:calc(var(--animate-duration)*.75)}.ha_flipInX,.ha_flipInY{-webkit-animation-name:ha_flipInX;animation-name:ha_flipInX;-webkit-backface-visibility:visible!important;backface-visibility:visible!important}.ha_flipInY{-webkit-animation-name:ha_flipInY;animation-name:ha_flipInY}.ha_swing{-webkit-transform-origin:top center;-ms-transform-origin:top center;transform-origin:top center;-webkit-animation-name:ha_swing;animation-name:ha_swing}.ha_slideInDown{-webkit-animation-name:ha_slideInDown;animation-name:ha_slideInDown}.ha_slideInUp{-webkit-animation-name:ha_slideInUp;animation-name:ha_slideInUp}.ha_slideInLeft{-webkit-animation-name:ha_slideInLeft;animation-name:ha_slideInLeft}.ha_slideInRight{-webkit-animation-name:ha_slideInRight;animation-name:ha_slideInRight}.ha-css-transform-yes{-webkit-transition-duration:var(--ha-tfx-transition-duration, .2s);transition-duration:var(--ha-tfx-transition-duration, .2s);-webkit-transition-property:-webkit-transform;transition-property:transform;transition-property:transform,-webkit-transform;-webkit-transform:translate(var(--ha-tfx-translate-x, 0),var(--ha-tfx-translate-y, 0)) scale(var(--ha-tfx-scale-x, 1),var(--ha-tfx-scale-y, 1)) skew(var(--ha-tfx-skew-x, 0),var(--ha-tfx-skew-y, 0)) rotateX(var(--ha-tfx-rotate-x, 0)) rotateY(var(--ha-tfx-rotate-y, 0)) rotateZ(var(--ha-tfx-rotate-z, 0));transform:translate(var(--ha-tfx-translate-x, 0),var(--ha-tfx-translate-y, 0)) scale(var(--ha-tfx-scale-x, 1),var(--ha-tfx-scale-y, 1)) skew(var(--ha-tfx-skew-x, 0),var(--ha-tfx-skew-y, 0)) rotateX(var(--ha-tfx-rotate-x, 0)) rotateY(var(--ha-tfx-rotate-y, 0)) rotateZ(var(--ha-tfx-rotate-z, 0))}.ha-css-transform-yes:hover{-webkit-transform:translate(var(--ha-tfx-translate-x-hover, var(--ha-tfx-translate-x, 0)),var(--ha-tfx-translate-y-hover, var(--ha-tfx-translate-y, 0))) scale(var(--ha-tfx-scale-x-hover, var(--ha-tfx-scale-x, 1)),var(--ha-tfx-scale-y-hover, var(--ha-tfx-scale-y, 1))) skew(var(--ha-tfx-skew-x-hover, var(--ha-tfx-skew-x, 0)),var(--ha-tfx-skew-y-hover, var(--ha-tfx-skew-y, 0))) rotateX(var(--ha-tfx-rotate-x-hover, var(--ha-tfx-rotate-x, 0))) rotateY(var(--ha-tfx-rotate-y-hover, var(--ha-tfx-rotate-y, 0))) rotateZ(var(--ha-tfx-rotate-z-hover, var(--ha-tfx-rotate-z, 0)));transform:translate(var(--ha-tfx-translate-x-hover, var(--ha-tfx-translate-x, 0)),var(--ha-tfx-translate-y-hover, var(--ha-tfx-translate-y, 0))) scale(var(--ha-tfx-scale-x-hover, var(--ha-tfx-scale-x, 1)),var(--ha-tfx-scale-y-hover, var(--ha-tfx-scale-y, 1))) skew(var(--ha-tfx-skew-x-hover, var(--ha-tfx-skew-x, 0)),var(--ha-tfx-skew-y-hover, var(--ha-tfx-skew-y, 0))) rotateX(var(--ha-tfx-rotate-x-hover, var(--ha-tfx-rotate-x, 0))) rotateY(var(--ha-tfx-rotate-y-hover, var(--ha-tfx-rotate-y, 0))) rotateZ(var(--ha-tfx-rotate-z-hover, var(--ha-tfx-rotate-z, 0)))}.happy-addon>.elementor-widget-container{word-wrap:break-word;overflow-wrap:break-word}.happy-addon>.elementor-widget-container,.happy-addon>.elementor-widget-container *{-webkit-box-sizing:border-box;box-sizing:border-box}.happy-addon p:empty{display:none}.happy-addon .elementor-inline-editing{min-height:auto!important}.happy-addon-pro img{max-width:100%;height:auto;-o-object-fit:cover;object-fit:cover}.ha-screen-reader-text{position:absolute;overflow:hidden;clip:rect(1px,1px,1px,1px);margin:-1px;padding:0;width:1px;height:1px;border:0;word-wrap:normal!important;-webkit-clip-path:inset(50%);clip-path:inset(50%)}.ha-has-bg-overlay>.elementor-widget-container{position:relative;z-index:1}.ha-has-bg-overlay>.elementor-widget-container:before{position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;content:""}.ha-popup--is-enabled .ha-js-popup,.ha-popup--is-enabled .ha-js-popup img{cursor:-webkit-zoom-in!important;cursor:zoom-in!important}.mfp-wrap .mfp-arrow,.mfp-wrap .mfp-close{background-color:transparent}.mfp-wrap .mfp-arrow:focus,.mfp-wrap .mfp-close:focus{outline-width:thin}.ha-advanced-tooltip-enable{position:relative;cursor:pointer;--ha-tooltip-arrow-color:black;--ha-tooltip-arrow-distance:0}.ha-advanced-tooltip-enable .ha-advanced-tooltip-content{position:absolute;z-index:999;display:none;padding:5px 0;width:120px;height:auto;border-radius:6px;background-color:#000;color:#fff;text-align:center;opacity:0}.ha-advanced-tooltip-enable .ha-advanced-tooltip-content::after{position:absolute;border-width:5px;border-style:solid;content:""}.ha-advanced-tooltip-enable .ha-advanced-tooltip-content.no-arrow::after{visibility:hidden}.ha-advanced-tooltip-enable .ha-advanced-tooltip-content.show{display:inline-block;opacity:1}.ha-advanced-tooltip-enable.ha-advanced-tooltip-top .ha-advanced-tooltip-content,body[data-elementor-device-mode=tablet] .ha-advanced-tooltip-enable.ha-advanced-tooltip-tablet-top .ha-advanced-tooltip-content{top:unset;right:0;bottom:calc(101% + var(--ha-tooltip-arrow-distance));left:0;margin:0 auto}.ha-advanced-tooltip-enable.ha-advanced-tooltip-top .ha-advanced-tooltip-content::after,body[data-elementor-device-mode=tablet] .ha-advanced-tooltip-enable.ha-advanced-tooltip-tablet-top .ha-advanced-tooltip-content::after{top:100%;right:unset;bottom:unset;left:50%;border-color:var(--ha-tooltip-arrow-color) transparent transparent transparent;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%)}.ha-advanced-tooltip-enable.ha-advanced-tooltip-bottom .ha-advanced-tooltip-content,body[data-elementor-device-mode=tablet] .ha-advanced-tooltip-enable.ha-advanced-tooltip-tablet-bottom .ha-advanced-tooltip-content{top:calc(101% + var(--ha-tooltip-arrow-distance));right:0;bottom:unset;left:0;margin:0 auto}.ha-advanced-tooltip-enable.ha-advanced-tooltip-bottom .ha-advanced-tooltip-content::after,body[data-elementor-device-mode=tablet] .ha-advanced-tooltip-enable.ha-advanced-tooltip-tablet-bottom .ha-advanced-tooltip-content::after{top:unset;right:unset;bottom:100%;left:50%;border-color:transparent transparent var(--ha-tooltip-arrow-color) transparent;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%)}.ha-advanced-tooltip-enable.ha-advanced-tooltip-left .ha-advanced-tooltip-content,body[data-elementor-device-mode=tablet] .ha-advanced-tooltip-enable.ha-advanced-tooltip-tablet-left .ha-advanced-tooltip-content{top:50%;right:calc(101% + var(--ha-tooltip-arrow-distance));bottom:unset;left:unset;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.ha-advanced-tooltip-enable.ha-advanced-tooltip-left .ha-advanced-tooltip-content::after,body[data-elementor-device-mode=tablet] .ha-advanced-tooltip-enable.ha-advanced-tooltip-tablet-left .ha-advanced-tooltip-content::after{top:50%;right:unset;bottom:unset;left:100%;border-color:transparent transparent transparent var(--ha-tooltip-arrow-color);-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.ha-advanced-tooltip-enable.ha-advanced-tooltip-right .ha-advanced-tooltip-content,body[data-elementor-device-mode=tablet] .ha-advanced-tooltip-enable.ha-advanced-tooltip-tablet-right .ha-advanced-tooltip-content{top:50%;right:unset;bottom:unset;left:calc(101% + var(--ha-tooltip-arrow-distance));-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.ha-advanced-tooltip-enable.ha-advanced-tooltip-right .ha-advanced-tooltip-content::after,body[data-elementor-device-mode=tablet] .ha-advanced-tooltip-enable.ha-advanced-tooltip-tablet-right .ha-advanced-tooltip-content::after{top:50%;right:100%;bottom:unset;left:unset;border-color:transparent var(--ha-tooltip-arrow-color) transparent transparent;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}body[data-elementor-device-mode=mobile] .ha-advanced-tooltip-enable.ha-advanced-tooltip-mobile-top .ha-advanced-tooltip-content{top:unset;right:0;bottom:calc(101% + var(--ha-tooltip-arrow-distance));left:0;margin:0 auto}body[data-elementor-device-mode=mobile] .ha-advanced-tooltip-enable.ha-advanced-tooltip-mobile-top .ha-advanced-tooltip-content::after{top:100%;right:unset;bottom:unset;left:50%;border-color:var(--ha-tooltip-arrow-color) transparent transparent transparent;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%)}body[data-elementor-device-mode=mobile] .ha-advanced-tooltip-enable.ha-advanced-tooltip-mobile-bottom .ha-advanced-tooltip-content{top:calc(101% + var(--ha-tooltip-arrow-distance));right:0;bottom:unset;left:0;margin:0 auto}body[data-elementor-device-mode=mobile] .ha-advanced-tooltip-enable.ha-advanced-tooltip-mobile-bottom .ha-advanced-tooltip-content::after{top:unset;right:unset;bottom:100%;left:50%;border-color:transparent transparent var(--ha-tooltip-arrow-color) transparent;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%)}body[data-elementor-device-mode=mobile] .ha-advanced-tooltip-enable.ha-advanced-tooltip-mobile-left .ha-advanced-tooltip-content{top:50%;right:calc(101% + var(--ha-tooltip-arrow-distance));bottom:unset;left:unset;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}body[data-elementor-device-mode=mobile] .ha-advanced-tooltip-enable.ha-advanced-tooltip-mobile-left .ha-advanced-tooltip-content::after{top:50%;right:unset;bottom:unset;left:100%;border-color:transparent transparent transparent var(--ha-tooltip-arrow-color);-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}body[data-elementor-device-mode=mobile] .ha-advanced-tooltip-enable.ha-advanced-tooltip-mobile-right .ha-advanced-tooltip-content{top:50%;right:unset;bottom:unset;left:calc(101% + var(--ha-tooltip-arrow-distance));-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}body[data-elementor-device-mode=mobile] .ha-advanced-tooltip-enable.ha-advanced-tooltip-mobile-right .ha-advanced-tooltip-content::after{top:50%;right:100%;bottom:unset;left:unset;border-color:transparent var(--ha-tooltip-arrow-color) transparent transparent;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}body.elementor-editor-active .happy-addon.ha-gravityforms .gform_wrapper{display:block!important}.ha-scroll-to-top-wrap.ha-scroll-to-top-hide{display:none}.ha-scroll-to-top-wrap.edit-mode,.ha-scroll-to-top-wrap.single-page-off{display:none!important}.ha-scroll-to-top-button{position:fixed;right:15px;bottom:15px;z-index:9999;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;align-items:center;-ms-flex-align:center;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;width:50px;height:50px;border-radius:50px;background-color:#5636d1;color:#fff;text-align:center;opacity:1;cursor:pointer;-webkit-transition:all .3s;transition:all .3s}.ha-scroll-to-top-button i{color:#fff;font-size:16px}.ha-scroll-to-top-button:hover{background-color:#e2498a}
+        </style>
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-post-7-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/uploads/elementor/css/post-7.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-icons-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="swiper-css"
+            href="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/lib/swiper/css/swiper.min.css?ver=5.3.6"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="elementor-pro-css"
+            href="https://autoescoladestaque.com.br/wp-content/plugins/elementor-pro/assets/css/frontend-lite.min.css?ver=3.19.0"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="font-awesome-5-all-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="font-awesome-4-shim-css"
+            href="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=3.19.0"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="she-header-style-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/sticky-header-effects-for-elementor/assets/css/she-header-style.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-global-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/uploads/elementor/css/global.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-post-876-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/uploads/elementor/css/post-876.css?ver=1709720158"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-post-12-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/uploads/elementor/css/post-12.css?ver=1709067309"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="happy-icons-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="font-awesome-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=1709042855"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-post-23-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/uploads/elementor/css/post-23.css?ver=1709067309"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-post-113-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/uploads/elementor/css/post-113.css?ver=1709042855"
+            media="all"
+        >
+        <style id="rocket-lazyload-inline-css">
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(https://autoescoladestaque.com.br/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat;cursor:pointer}
+        </style>
+        <link
+            rel="stylesheet"
+            id="google-fonts-1-css"
+            href="https://fonts.googleapis.com/css?family=Montserrat%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap&#038;ver=6.6.2"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="elementor-icons-shared-0-css"
+            href="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-icons-fa-solid-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=1709067309"
+            media="all"
+        >
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-icons-fa-brands-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css?ver=1709042855"
+            media="all"
+        >
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-includes/js/dist/hooks.min.js?ver=2810c76e705dd1a53b18" id="wp-hooks-js"></script>
+        <script type="rocketlazyloadscript" src="https://stats.wp.com/w.js?ver=202445" id="woo-tracks-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+        <script
+            type="rocketlazyloadscript"
+            src="https://autoescoladestaque.com.br/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.8.6.1"
+            id="jquery-blockui-js"
+            defer
+            data-wp-strategy="defer"
+        ></script>
+        <script
+            type="rocketlazyloadscript"
+            src="https://autoescoladestaque.com.br/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.8.6.1"
+            id="js-cookie-js"
+            defer
+            data-wp-strategy="defer"
+        ></script>
+        <script id="woocommerce-js-extra">
+var woocommerce_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%"};
+        </script>
+        <script
+            type="rocketlazyloadscript"
+            src="https://autoescoladestaque.com.br/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=8.6.1"
+            id="woocommerce-js"
+            defer
+            data-wp-strategy="defer"
+        ></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/extensions-for-elementor-form/assets/frontend-scripts.js?ver=2.0.1" id="eef-frontend-script-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/lib/font-awesome/js/v4-shims.min.js?ver=3.19.0" id="font-awesome-4-shim-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/sticky-header-effects-for-elementor/assets/js/she-header.js?ver=1.6.10" id="she-header-js"></script>
+        <link rel="https://api.w.org/" href="https://autoescoladestaque.com.br/wp-json/">
+        <link
+            rel="alternate"
+            title="JSON"
+            type="application/json"
+            href="https://autoescoladestaque.com.br/wp-json/wp/v2/pages/876"
+        >
+        <link
+            rel="EditURI"
+            type="application/rsd+xml"
+            title="RSD"
+            href="https://autoescoladestaque.com.br/xmlrpc.php?rsd"
+        >
+        <meta name="generator" content="WordPress 6.6.2">
+        <meta name="generator" content="WooCommerce 8.6.1">
+        <link rel="canonical" href="https://autoescoladestaque.com.br/compre-online-black-friday/">
+        <link rel="shortlink" href="https://autoescoladestaque.com.br/?p=876">
+        <link
+            rel="alternate"
+            title="oEmbed (JSON)"
+            type="application/json+oembed"
+            href="https://autoescoladestaque.com.br/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fautoescoladestaque.com.br%2Fcompre-online-black-friday%2F"
+        >
+        <link
+            rel="alternate"
+            title="oEmbed (XML)"
+            type="text/xml+oembed"
+            href="https://autoescoladestaque.com.br/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fautoescoladestaque.com.br%2Fcompre-online-black-friday%2F&#038;format=xml"
+        >
+        <script type="rocketlazyloadscript">document.createElement( "picture" );if(!window.HTMLPictureElement && document.addEventListener) {window.addEventListener("DOMContentLoaded", function() {var s = document.createElement("script");s.src = "https://autoescoladestaque.com.br/wp-content/plugins/webp-express/js/picturefill.min.js";document.body.appendChild(s);});}</script>
+        <noscript>
+            <style>.woocommerce-product-gallery{ opacity: 1 !important; }</style>
+        </noscript>
+        <meta name="generator" content="Elementor 3.19.0; features: e_optimized_assets_loading, e_optimized_css_loading, additional_custom_breakpoints, block_editor_assets_optimize, e_image_loading_optimization; settings: css_print_method-external, google_font-enabled, font_display-swap">
+        <meta name="facebook-domain-verification" content="pek5l3payrud7xp8hdnb3livhw9ahw">
+        <link rel="icon" href="https://autoescoladestaque.com.br/wp-content/uploads/2022/10/cropped-iconnn-32x32.png" sizes="32x32">
+        <link rel="icon" href="https://autoescoladestaque.com.br/wp-content/uploads/2022/10/cropped-iconnn-192x192.png" sizes="192x192">
+        <link rel="apple-touch-icon" href="https://autoescoladestaque.com.br/wp-content/uploads/2022/10/cropped-iconnn-180x180.png">
+        <meta name="msapplication-TileImage" content="https://autoescoladestaque.com.br/wp-content/uploads/2022/10/cropped-iconnn-270x270.png">
+        <style id="wp-custom-css">
+			input#pagseguro-card-holder-birth-date {
+    padding: 14px !important;
+    font-size: 14px !important;
+}
+
+
+
+
+
+input#pagseguro-card-number {
+    margin-top: 23px !important;
+margin-right: 5px !important;
+}
+
+input#pagseguro-card-holder-cpf {
+    margin-top: 23px !important;
+margin-left: 5px !important;
+}
+
+
+
+.product {
+    background-color: #ffffff;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+
+.product:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+select#pagseguro-card-installments {
+    padding-bottom: 10px !important;
+margin-left: 5px !important;
+	border-radius: 3px;
+	border-color: #171717;
+}
+
+
+
+.wcf-embed-checkout-form .woocommerce-checkout #payment div.payment_box .form-row {
+    margin: 0 0 1.3em;
+    padding-right: 6px !important;
+}
+
+
+.elementor-876 .elementor-button  {
+    background-color: #389859 !important;
+    color: white !important;
+}
+
+input#pagseguro-card-holder-phone{
+	    padding: 14px !important;
+    font-size: 14px !important;
+	margin-top: 20px !important;
+margin-right: 5px !important;
+}
+
+input#pagseguro-card-expiry{
+
+padding: 14px !important;
+    font-size: 14px !important;
+}
+
+input#pagseguro-card-cvc
+{
+
+padding: 14px !important;
+    font-size: 14px !important;
+    
+}
+
+.logo-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.logo-center img {
+    width: 150px;
+}
+        </style>
+        <noscript>
+            <style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style>
+        </noscript>
+    </head>
+    <body class="page-template page-template-elementor_header_footer page page-id-876 wp-custom-logo theme-hello-elementor woocommerce-no-js elementor-default elementor-template-full-width elementor-kit-7 elementor-page elementor-page-876">
+        <a class="skip-link screen-reader-text" href="#content">Ir para o conteúdo</a>
+        <div></div>
+        <div
+            data-elementor-type="wp-page"
+            data-elementor-id="876"
+            class="elementor elementor-876"
+            data-elementor-post-type="page"
+        >
+            <section
+                class="elementor-section elementor-top-section elementor-element elementor-element-65b035b elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="65b035b"
+                data-element_type="section"
+                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+            >   
+
+                <div class="logo-center">
+                    <img class="logo-size" src="./IMGS/1.jpg" alt="">
+                </div>
+
+                <div class="elementor-container elementor-column-gap-default">
+                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2cb1023" data-id="2cb1023" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div
+                                class="elementor-element elementor-element-4fd8e25 elementor-widget elementor-widget-heading"
+                                data-id="4fd8e25"
+                                data-element_type="widget"
+                                data-widget_type="heading.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <style>/*! elementor - v3.19.0 - 29-01-2024 */
+.elementor-heading-title{padding:0;margin:0;line-height:1}.elementor-widget-heading .elementor-heading-title[class*=elementor-size-]>a{color:inherit;font-size:inherit;line-height:inherit}.elementor-widget-heading .elementor-heading-title.elementor-size-small{font-size:15px}.elementor-widget-heading .elementor-heading-title.elementor-size-medium{font-size:19px}.elementor-widget-heading .elementor-heading-title.elementor-size-large{font-size:29px}.elementor-widget-heading .elementor-heading-title.elementor-size-xl{font-size:39px}.elementor-widget-heading .elementor-heading-title.elementor-size-xxl{font-size:59px}
+                                    </style>
+                                    <h2 style="color:#39b349 !important;     text-shadow: 0 0 34px #39b349 !important" class="elementor-heading-title elementor-size-default">BLACK FRIDAY COOPIAUTO!</h2>
+                                </div>
+                            </div>
+                            <div
+                                class="elementor-element elementor-element-1ee436e elementor-widget elementor-widget-heading"
+                                data-id="1ee436e"
+                                data-element_type="widget"
+                                data-widget_type="heading.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <h2 class="elementor-heading-title elementor-size-default">Veja abaixo os melhores Preços que fizemos para VOCÊ!</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section
+                class="elementor-section elementor-top-section elementor-element elementor-element-5786208 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="5786208"
+                data-element_type="section"
+                data-settings="{&quot;_ha_eqh_enable&quot;:false}"
+            >
+                <div class="elementor-container elementor-column-gap-default ">
+                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-3477077" data-id="3477077" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated ">
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-2a495c9 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="2a495c9"
+                                data-element_type="section"
+                                data-settings="{&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default ">
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-82ffd93" data-id="82ffd93" data-element_type="column">
+                                        <div class="  elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-5e9959e elementor-widget elementor-widget-image"
+                                                data-id="5e9959e"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <source data-lazy-srcset="https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/3.png.webp 1080w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/3-300x300.png.webp 300w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/3-1024x1024.png.webp 1024w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/3-150x150.png.webp 150w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/3-768x768.png.webp 768w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/3-600x600.png.webp 600w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/3-100x100.png.webp 100w" sizes="(max-width: 1080px) 100vw, 1080px" type="image/webp">
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/2.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                        <noscript>
+                                                            <img
+                                                                decoding="async"
+                                                                width="1080"
+                                                                height="1080"
+                                                                src="./IMGS/2.jpg"
+                                                                class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                                alt=""
+                                                                sizes="(max-width: 1080px) 100vw, 1080px"
+                                                            >
+                                                        </noscript>
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-e1d8fc7 elementor-widget elementor-widget-heading"
+                                                data-id="e1d8fc7"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">PACOTE PRIMEIRA HABILITAÇÃO (A) MOTO</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-d1a6fcd elementor-widget elementor-widget-heading"
+                                                data-id="d1a6fcd"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">R$1.150,00</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-3dbab81 elementor-widget elementor-widget-heading"
+                                                data-id="3dbab81"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-da30b26 elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="da30b26"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/pacote-primeira-habilitacao-a-moto/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-81f1eec" data-id="81f1eec" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-fb98c34 elementor-widget elementor-widget-image"
+                                                data-id="fb98c34"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/4.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                        <noscript>
+                                                            <img
+                                                                decoding="async"
+                                                                width="1080"
+                                                                height="1080"
+                                                                src="./IMGS/4.jpg"
+                                                                class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                                alt=""
+                                                            >
+                                                        </noscript>
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-7c170c0 elementor-widget elementor-widget-heading"
+                                                data-id="7c170c0"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">
+                                                        PACOTE ADIÇÃO CATEGORIA (A) MOTO
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-c99b669 elementor-widget elementor-widget-heading"
+                                                data-id="c99b669"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">R$ 750,00</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-3a42731 elementor-widget elementor-widget-heading"
+                                                data-id="3a42731"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-6ad013a elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="6ad013a"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/pacote-adicao-categoria-a-moto/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-f842a17" data-id="f842a17" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-54a74da elementor-widget elementor-widget-image"
+                                                data-id="54a74da"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/3.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                        <noscript>
+                                                            <img
+                                                                decoding="async"
+                                                                width="1080"
+                                                                height="1080"
+                                                                src="./IMGS/3.jpg"
+                                                                class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                                alt=""
+                                                            >
+                                                        </noscript>
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-a6f0a21 elementor-widget elementor-widget-heading"
+                                                data-id="a6f0a21"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">PACOTE PRIMEIRA HABILITAÇÃO (B) CARRO</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-c39bca6 elementor-widget elementor-widget-heading"
+                                                data-id="c39bca6"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">R$1.300,00</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-dd5c9b7 elementor-widget elementor-widget-heading"
+                                                data-id="dd5c9b7"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-c5b201b elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="c5b201b"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/pacote-primeira-habilitacao-b-carro/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-6e3768e" data-id="6e3768e" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-e35a109 elementor-widget elementor-widget-image"
+                                                data-id="e35a109"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/5.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                        <noscript>
+                                                            <img
+                                                                decoding="async"
+                                                                width="1080"
+                                                                height="1080"
+                                                                src="./IMGS/5.jpg"
+                                                                class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                                alt=""
+                                                            >
+                                                        </noscript>
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-8aad120 elementor-widget elementor-widget-heading"
+                                                data-id="8aad120"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">
+                                                        PACOTE
+                                                        <br>
+                                                        ADIÇÃO (B)
+                                                        <br>
+                                                        CARRO
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-fc5c852 elementor-widget elementor-widget-heading"
+                                                data-id="fc5c852"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">R$ 850,00</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-bfc4bb9 elementor-widget elementor-widget-heading"
+                                                data-id="bfc4bb9"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-4134ba0 elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="4134ba0"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/pacote-adicao-b-carro/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-9e50a4c elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="9e50a4c"
+                                data-element_type="section"
+                                data-settings="{&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-bde88ec" data-id="bde88ec" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-06d2b24 elementor-widget elementor-widget-image"
+                                                data-id="06d2b24"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/7.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-6b89c5a elementor-widget elementor-widget-heading"
+                                                data-id="6b89c5a"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">MUDANÇA DE CATEGORIA (D) ÔNIBUS</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-80c743d elementor-widget elementor-widget-heading"
+                                                data-id="80c743d"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">R$1.450,00</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-906902f elementor-widget elementor-widget-heading"
+                                                data-id="906902f"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-9f870d1 elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="9f870d1"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/mudanca-de-categoria-d-onibus/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-78c052e" data-id="78c052e" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-1128ebe elementor-widget elementor-widget-image"
+                                                data-id="1128ebe"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/8.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-c474715 elementor-widget elementor-widget-heading"
+                                                data-id="c474715"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">MUDANÇA DE CATEGORIA (E) CARRETA</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-40a1cf2 elementor-widget elementor-widget-heading"
+                                                data-id="40a1cf2"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">R$1.900,00</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-e4b904c elementor-widget elementor-widget-heading"
+                                                data-id="e4b904c"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-2bcb091 elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="2bcb091"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/mudanca-de-categoria-e-carreta/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-fa65386" data-id="fa65386" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-7d2adb5 elementor-widget elementor-widget-image"
+                                                data-id="7d2adb5"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/6.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-617a89c elementor-widget elementor-widget-heading"
+                                                data-id="617a89c"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">
+                                                        PACOTE
+                                                        <br>
+                                                        SIMULTÂNEO A/B
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-b11acf5 elementor-widget elementor-widget-heading"
+                                                data-id="b11acf5"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">R$1.950,00</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-6966af7 elementor-widget elementor-widget-heading"
+                                                data-id="6966af7"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-b25c88d elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="b25c88d"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/pacote-simultaneo-a-b/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-32579bd" data-id="32579bd" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-c0fd768 elementor-widget elementor-widget-image"
+                                                data-id="c0fd768"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/9.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-6c77433 elementor-widget elementor-widget-heading"
+                                                data-id="6c77433"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">
+                                                        CURSO
+                                                        <br>
+                                                        LEGISLAÇÃO
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-63cd419 elementor-widget elementor-widget-heading"
+                                                data-id="63cd419"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">R$450,00</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-c637819 elementor-widget elementor-widget-heading"
+                                                data-id="c637819"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-b2cf342 elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="b2cf342"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/curso-legislacao/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-7d21301 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="7d21301"
+                                data-element_type="section"
+                                data-settings="{&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-18b1e9a" data-id="18b1e9a" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-eef03f1 elementor-widget elementor-widget-image"
+                                                data-id="eef03f1"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <picture>
+                                                            <img
+                                                                decoding="async"
+                                                                width="1080"
+                                                                height="1080"
+                                                                src="./IMGS/10.jpg"
+                                                                class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                                alt=""
+                                                            >
+                                                        </picture>
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-bb6e9c9 elementor-widget elementor-widget-heading"
+                                                data-id="bb6e9c9"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">
+                                                        CURSO
+                                                        <br>
+                                                        ATUALIZAÇÃO
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-24cf64e elementor-widget elementor-widget-heading"
+                                                data-id="24cf64e"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">
+                                                        R$300,00
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-78c3efc elementor-widget elementor-widget-heading"
+                                                data-id="78c3efc"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-4a7a202 elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="4a7a202"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/curso-atualizacao/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-564924c" data-id="564924c" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated product">
+                                            <div
+                                                class="elementor-element elementor-element-b9f0634 elementor-widget elementor-widget-image"
+                                                data-id="b9f0634"
+                                                data-element_type="widget"
+                                                data-widget_type="image.default"
+                                            >
+                                                <div class="elementor-widget-container ">
+                                                    <picture>
+                                                        <img
+                                                            decoding="async"
+                                                            width="1080"
+                                                            height="1080"
+                                                            src="./IMGS/11.jpg"
+                                                            class="attachment-full size-full wp-image-782 webpexpress-processed"
+                                                            alt=""
+                                                        >
+                                                    </picture>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-659fc08 elementor-widget elementor-widget-heading"
+                                                data-id="659fc08"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">
+                                                        CURSO
+                                                        <br>
+                                                        RECICLAGEM
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-0dca2c3 elementor-widget elementor-widget-heading"
+                                                data-id="0dca2c3"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">
+                                                        R$350,00
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-7426e43 elementor-widget elementor-widget-heading"
+                                                data-id="7426e43"
+                                                data-element_type="widget"
+                                                data-widget_type="heading.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <h2 class="elementor-heading-title elementor-size-default">( Fora taxas detran/Exames Médicos )</h2>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="elementor-element elementor-element-86c331f elementor-align-center elementor-widget elementor-widget-button"
+                                                data-id="86c331f"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/produto/curso-reciclagem/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">COMPRAR AGORA</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-c0b1166" data-id="c0b1166" data-element_type="column">
+                                        <div class="elementor-widget-wrap"></div>
+                                    </div>
+                                    <div class="elementor-column elementor-col-25 elementor-inner-column elementor-element elementor-element-6bc93cc" data-id="6bc93cc" data-element_type="column">
+                                        <div class="elementor-widget-wrap"></div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div
+            data-elementor-type="footer"
+            data-elementor-id="23"
+            class="elementor elementor-23 elementor-location-footer"
+            data-elementor-post-type="elementor_library"
+        >
+            <section
+                class="elementor-section elementor-top-section elementor-element elementor-element-5064ed0 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="5064ed0"
+                data-element_type="section"
+                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+            >
+                <div class="elementor-container elementor-column-gap-default">
+                    <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-9a95592" data-id="9a95592" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div
+                                class="elementor-element elementor-element-526851e elementor-mobile-align-center elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+                                data-id="526851e"
+                                data-element_type="widget"
+                                data-widget_type="icon-list.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <link rel="stylesheet" href="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css">
+                                    <ul class="elementor-icon-list-items">
+                                        <li class="elementor-icon-list-item">
+                                            <span class="elementor-icon-list-text">Telefone: (33) 3621-1307</span>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+                                            <span class="elementor-icon-list-text">Whatsapp: (33) 3621-1307</span>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+                                            <span class="elementor-icon-list-text">contato@autoescoladestaque.com.br</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div
+                                class="elementor-element elementor-element-6942cd2 elementor-mobile-align-center elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+                                data-id="6942cd2"
+                                data-element_type="widget"
+                                data-widget_type="icon-list.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <ul class="elementor-icon-list-items">
+                                        <li class="elementor-icon-list-item">
+                                            <span class="elementor-icon-list-text">Rua Viçosa, 69 - Centro</span>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+                                            <span class="elementor-icon-list-text">Nanuque • MG</span>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+                                            <span class="elementor-icon-list-text">CEP: 39.860-000</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-d910d5e" data-id="d910d5e" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div
+                                class="elementor-element elementor-element-c24d5a8 elementor-widget elementor-widget-heading"
+                                data-id="c24d5a8"
+                                data-element_type="widget"
+                                data-widget_type="heading.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <h2 class="elementor-heading-title elementor-size-default">
+                                        ESCOLHA UM SERVIÇO
+                                    </h2>
+                                </div>
+                            </div>
+                            <div
+                                class="elementor-element elementor-element-b42c6c2 elementor-mobile-align-center elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+                                data-id="b42c6c2"
+                                data-element_type="widget"
+                                data-widget_type="icon-list.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <ul class="elementor-icon-list-items">
+                                        <li class="elementor-icon-list-item">
+                                            <a href="https://autoescoladestaque.com.br/#compreonline">
+                                                <span class="elementor-icon-list-text">Compra Online</span>
+                                            </a>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+                                            <a href="https://autoescoladestaque.com.br/indique-um-amigo/">
+                                                <span class="elementor-icon-list-text">Indique um Amigo</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div
+                                class="elementor-element elementor-element-404c1de elementor-widget elementor-widget-heading"
+                                data-id="404c1de"
+                                data-element_type="widget"
+                                data-widget_type="heading.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <h2 class="elementor-heading-title elementor-size-default">INSTITUCIONAL</h2>
+                                </div>
+                            </div>
+                            <div
+                                class="elementor-element elementor-element-8492b0c elementor-mobile-align-center elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+                                data-id="8492b0c"
+                                data-element_type="widget"
+                                data-widget_type="icon-list.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <ul class="elementor-icon-list-items">
+                                        <li class="elementor-icon-list-item">
+                                            <a href="#">
+                                                <span class="elementor-icon-list-text">Política de privacidade</span>
+                                            </a>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+                                            <a href="#">
+                                                <span class="elementor-icon-list-text">Termos e condições</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-42d30ab" data-id="42d30ab" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div
+                                class="elementor-element elementor-element-b74433e elementor-widget elementor-widget-facebook-page"
+                                data-id="b74433e"
+                                data-element_type="widget"
+                                data-widget_type="facebook-page.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <style>/*! elementor-pro - v3.19.0 - 29-01-2024 */
+.elementor-facebook-widget.fb_iframe_widget,.elementor-facebook-widget.fb_iframe_widget span{width:100%!important}.elementor-facebook-widget.fb_iframe_widget iframe{position:relative;width:100%!important}.elementor-facebook-widget.fb-like{height:1px}.elementor-widget-facebook-comments iframe{width:100%!important}
+                                    </style>
+                                    <div
+                                        class="elementor-facebook-widget fb-page"
+                                        data-href="https://www.facebook.com/Destaquecfc/"
+                                        data-tabs="timeline"
+                                        data-height="185px"
+                                        data-width="500px"
+                                        data-small-header="false"
+                                        data-hide-cover="false"
+                                        data-show-facepile="true"
+                                        data-hide-cta="false"
+                                        style="min-height: 1px;height:185px"
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section
+                class="elementor-section elementor-top-section elementor-element elementor-element-56732a6 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="56732a6"
+                data-element_type="section"
+                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+            >
+                <div class="elementor-container elementor-column-gap-default">
+                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-d3eb7c0" data-id="d3eb7c0" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div
+                                class="elementor-element elementor-element-f572b1d elementor-widget elementor-widget-heading"
+                                data-id="f572b1d"
+                                data-element_type="widget"
+                                data-widget_type="heading.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <h2 class="elementor-heading-title elementor-size-default">
+                                        Autoescola © 2022 | Desenvolvido por Agência Digital CFC
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div
+            data-elementor-type="popup"
+            data-elementor-id="251"
+            class="elementor elementor-251 elementor-location-popup"
+            data-elementor-settings="{&quot;entrance_animation&quot;:&quot;slideInRight&quot;,&quot;entrance_animation_mobile&quot;:&quot;slideInRight&quot;,&quot;exit_animation&quot;:&quot;slideInRight&quot;,&quot;exit_animation_mobile&quot;:&quot;slideInRight&quot;,&quot;entrance_animation_duration&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:1.1999999999999999555910790149937383830547332763671875,&quot;sizes&quot;:[]},&quot;a11y_navigation&quot;:&quot;yes&quot;,&quot;timing&quot;:[]}"
+            data-elementor-post-type="elementor_library"
+        >
+            <section
+                class="elementor-section elementor-top-section elementor-element elementor-element-e45d1e4 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="e45d1e4"
+                data-element_type="section"
+                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+            >
+                <div class="elementor-container elementor-column-gap-default">
+                    <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-ba7085a" data-id="ba7085a" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div
+                                class="elementor-element elementor-element-be48c0e elementor-widget elementor-widget-image"
+                                data-id="be48c0e"
+                                data-element_type="widget"
+                                data-widget_type="image.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <a href="https://autoescoladestaque.com.br/">
+                                        <picture>
+                                            <source data-lazy-srcset="https://storage.googleapis.com/ecdt-logo-saida/1acab3670e90ee3ad637db3d135cdc333e5e9cde294ee12c29f4a593a773ed18/COOPIAUTO.webp 1772w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-300x83.png.webp 300w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-1024x284.png.webp 1024w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-768x213.png.webp 768w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-1536x426.png.webp 1536w, https://autoescoladestaque.com.br/wp-content/webp-express/webp-images/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-600x166.png.webp 600w" sizes="(max-width: 1772px) 100vw, 1772px" type="image/webp">
+                                            <img
+                                                fetchpriority="high"
+                                                width="1772"
+                                                height="10"
+                                                src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201772%20491'%3E%3C/svg%3E"
+                                                class="attachment-full size-full wp-image-701 webpexpress-processed"
+                                                alt=""
+                                                data-lazy-srcset="https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE.png 1772w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-300x83.png 300w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-1024x284.png 1024w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-768x213.png 768w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-1536x426.png 1536w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-600x166.png 600w"
+                                                data-lazy-sizes="(max-width: 1772px) 100vw, 1772px"
+                                                data-lazy-src="https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE.png"
+                                            >
+                                            <noscript>
+                                                <img
+                                                    fetchpriority="high"
+                                                    width="1772"
+                                                    height="491"
+                                                    src="https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE.png"
+                                                    class="attachment-full size-full wp-image-701 webpexpress-processed"
+                                                    alt=""
+                                                    srcset="https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE.png 1772w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-300x83.png 300w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-1024x284.png 1024w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-768x213.png 768w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-1536x426.png 1536w, https://autoescoladestaque.com.br/wp-content/uploads/2022/10/logoAUTOESCOLA-DESTAQUE-600x166.png 600w"
+                                                    sizes="(max-width: 1772px) 100vw, 1772px"
+                                                >
+                                            </noscript>
+                                        </picture>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-4bf6b53" data-id="4bf6b53" data-element_type="column">
+                        <div class="elementor-widget-wrap"></div>
+                    </div>
+                </div>
+            </section>
+            <section
+                class="elementor-section elementor-top-section elementor-element elementor-element-58de4af elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="58de4af"
+                data-element_type="section"
+                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+            >
+                <div class="elementor-container elementor-column-gap-default">
+                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b13b994" data-id="b13b994" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-5ff4cbe elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="5ff4cbe"
+                                data-element_type="section"
+                                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-c3e75ea" data-id="c3e75ea" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div
+                                                class="elementor-element elementor-element-105ec85 elementor-mobile-align-left elementor-widget elementor-widget-button"
+                                                data-id="105ec85"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/#principal">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">Principal</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-9627b39 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="9627b39"
+                                data-element_type="section"
+                                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-179543b" data-id="179543b" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div
+                                                class="elementor-element elementor-element-7a8535f elementor-mobile-align-left elementor-widget elementor-widget-button"
+                                                data-id="7a8535f"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/minha-conta/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">Minha Conta</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-fc316c2 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="fc316c2"
+                                data-element_type="section"
+                                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-abc755c" data-id="abc755c" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div
+                                                class="elementor-element elementor-element-378a14c elementor-mobile-align-left elementor-widget elementor-widget-button"
+                                                data-id="378a14c"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/compre-online/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">Compre Online</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-3e78823 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="3e78823"
+                                data-element_type="section"
+                                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-7a515f7" data-id="7a515f7" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div
+                                                class="elementor-element elementor-element-24f326c elementor-mobile-align-left elementor-widget elementor-widget-button"
+                                                data-id="24f326c"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://gruponline.pro.br/centrao/avaliacao_cetraoura.php">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">Simulado</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-363f451 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="363f451"
+                                data-element_type="section"
+                                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-cc9a847" data-id="cc9a847" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div
+                                                class="elementor-element elementor-element-f637781 elementor-mobile-align-left elementor-widget elementor-widget-button"
+                                                data-id="f637781"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://www.autoclique.com.br/autocliqueweb/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">Área do Aluno</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="elementor-section elementor-inner-section elementor-element elementor-element-92a0a24 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                data-id="92a0a24"
+                                data-element_type="section"
+                                data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}"
+                            >
+                                <div class="elementor-container elementor-column-gap-default">
+                                    <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-6a8a437" data-id="6a8a437" data-element_type="column">
+                                        <div class="elementor-widget-wrap elementor-element-populated">
+                                            <div
+                                                class="elementor-element elementor-element-0f05d1e elementor-mobile-align-left elementor-widget elementor-widget-button"
+                                                data-id="0f05d1e"
+                                                data-element_type="widget"
+                                                data-widget_type="button.default"
+                                            >
+                                                <div class="elementor-widget-container">
+                                                    <div class="elementor-button-wrapper">
+                                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://autoescoladestaque.com.br/indique-um-amigo/">
+                                                            <span class="elementor-button-content-wrapper">
+                                                                <span class="elementor-button-text">Indique um Amigo</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <div
+                                class="elementor-element elementor-element-fe4df31 elementor-widget elementor-widget-spacer"
+                                data-id="fe4df31"
+                                data-element_type="widget"
+                                data-widget_type="spacer.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <style>/*! elementor - v3.19.0 - 29-01-2024 */
+.elementor-column .elementor-spacer-inner{height:var(--spacer-size)}.e-con{--container-widget-width:100%}.e-con-inner>.elementor-widget-spacer,.e-con>.elementor-widget-spacer{width:var(--container-widget-width,var(--spacer-size));--align-self:var(--container-widget-align-self,initial);--flex-shrink:0}.e-con-inner>.elementor-widget-spacer>.elementor-widget-container,.e-con>.elementor-widget-spacer>.elementor-widget-container{height:100%;width:100%}.e-con-inner>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer,.e-con>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer{height:100%}.e-con-inner>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer>.elementor-spacer-inner,.e-con>.elementor-widget-spacer>.elementor-widget-container>.elementor-spacer>.elementor-spacer-inner{height:var(--container-widget-height,var(--spacer-size))}.e-con-inner>.elementor-widget-spacer.elementor-widget-empty,.e-con>.elementor-widget-spacer.elementor-widget-empty{position:relative;min-height:22px;min-width:22px}.e-con-inner>.elementor-widget-spacer.elementor-widget-empty .elementor-widget-empty-icon,.e-con>.elementor-widget-spacer.elementor-widget-empty .elementor-widget-empty-icon{position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;padding:0;width:22px;height:22px}
+                                    </style>
+                                    <div class="elementor-spacer">
+                                        <div class="elementor-spacer-inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="elementor-element elementor-element-da562f0 elementor-widget elementor-widget-heading"
+                                data-id="da562f0"
+                                data-element_type="widget"
+                                data-widget_type="heading.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <h2 class="elementor-heading-title elementor-size-default">
+                                        Central de Atendimento:
+                                    </h2>
+                                </div>
+                            </div>
+                            <div
+                                class="elementor-element elementor-element-2049d5a elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list"
+                                data-id="2049d5a"
+                                data-element_type="widget"
+                                data-widget_type="icon-list.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <ul class="elementor-icon-list-items">
+                                        <li class="elementor-icon-list-item">
+                                            <span class="elementor-icon-list-text">
+                                                Segunda a sexta, das 9h às 20h
+                                                <br>
+                                                Sábado, das 9h às 14h
+                                            </span>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+                                            <span class="elementor-icon-list-icon">
+                                                <i aria-hidden="true" class="fas fa-envelope"></i>
+                                            </span>
+                                            <span class="elementor-icon-list-text">contato@autoescoladestaque.com.br</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div
+            data-elementor-type="popup"
+            data-elementor-id="113"
+            class="elementor elementor-113 elementor-location-popup"
+            data-elementor-settings="{&quot;entrance_animation&quot;:&quot;zoomIn&quot;,&quot;exit_animation&quot;:&quot;zoomIn&quot;,&quot;prevent_close_on_background_click&quot;:&quot;yes&quot;,&quot;prevent_close_on_esc_key&quot;:&quot;yes&quot;,&quot;entrance_animation_duration&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:1.1999999999999999555910790149937383830547332763671875,&quot;sizes&quot;:[]},&quot;triggers&quot;:{&quot;page_load_delay&quot;:1,&quot;page_load&quot;:&quot;yes&quot;},&quot;timing&quot;:[]}"
+            data-elementor-post-type="elementor_library"
+        >
+            <section
+                class="elementor-section elementor-top-section elementor-element elementor-element-84da2af elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                data-id="84da2af"
+                data-element_type="section"
+                data-settings="{&quot;_ha_eqh_enable&quot;:false}"
+            >
+                <div class="elementor-container elementor-column-gap-default">
+                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-332bdd4" data-id="332bdd4" data-element_type="column">
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div
+                                class="elementor-element elementor-element-06bd9b6 elementor-shape-circle elementor-grid-0 e-grid-align-center elementor-widget elementor-widget-social-icons"
+                                data-id="06bd9b6"
+                                data-element_type="widget"
+                                data-widget_type="social-icons.default"
+                            >
+                                <div class="elementor-widget-container">
+                                    <style>/*! elementor - v3.19.0 - 29-01-2024 */
+.elementor-widget-social-icons.elementor-grid-0 .elementor-widget-container,.elementor-widget-social-icons.elementor-grid-mobile-0 .elementor-widget-container,.elementor-widget-social-icons.elementor-grid-tablet-0 .elementor-widget-container{line-height:1;font-size:0}.elementor-widget-social-icons:not(.elementor-grid-0):not(.elementor-grid-tablet-0):not(.elementor-grid-mobile-0) .elementor-grid{display:inline-grid}.elementor-widget-social-icons .elementor-grid{grid-column-gap:var(--grid-column-gap,5px);grid-row-gap:var(--grid-row-gap,5px);grid-template-columns:var(--grid-template-columns);justify-content:var(--justify-content,center);justify-items:var(--justify-content,center)}.elementor-icon.elementor-social-icon{font-size:var(--icon-size,25px);line-height:var(--icon-size,25px);width:calc(var(--icon-size, 25px) + 2 * var(--icon-padding, .5em));height:calc(var(--icon-size, 25px) + 2 * var(--icon-padding, .5em))}.elementor-social-icon{--e-social-icon-icon-color:#fff;display:inline-flex;background-color:#69727d;align-items:center;justify-content:center;text-align:center;cursor:pointer}.elementor-social-icon i{color:var(--e-social-icon-icon-color)}.elementor-social-icon svg{fill:var(--e-social-icon-icon-color)}.elementor-social-icon:last-child{margin:0}.elementor-social-icon:hover{opacity:.9;color:#fff}.elementor-social-icon-android{background-color:#a4c639}.elementor-social-icon-apple{background-color:#999}.elementor-social-icon-behance{background-color:#1769ff}.elementor-social-icon-bitbucket{background-color:#205081}.elementor-social-icon-codepen{background-color:#000}.elementor-social-icon-delicious{background-color:#39f}.elementor-social-icon-deviantart{background-color:#05cc47}.elementor-social-icon-digg{background-color:#005be2}.elementor-social-icon-dribbble{background-color:#ea4c89}.elementor-social-icon-elementor{background-color:#d30c5c}.elementor-social-icon-envelope{background-color:#ea4335}.elementor-social-icon-facebook,.elementor-social-icon-facebook-f{background-color:#3b5998}.elementor-social-icon-flickr{background-color:#0063dc}.elementor-social-icon-foursquare{background-color:#2d5be3}.elementor-social-icon-free-code-camp,.elementor-social-icon-freecodecamp{background-color:#006400}.elementor-social-icon-github{background-color:#333}.elementor-social-icon-gitlab{background-color:#e24329}.elementor-social-icon-globe{background-color:#69727d}.elementor-social-icon-google-plus,.elementor-social-icon-google-plus-g{background-color:#dd4b39}.elementor-social-icon-houzz{background-color:#7ac142}.elementor-social-icon-instagram{background-color:#262626}.elementor-social-icon-jsfiddle{background-color:#487aa2}.elementor-social-icon-link{background-color:#818a91}.elementor-social-icon-linkedin,.elementor-social-icon-linkedin-in{background-color:#0077b5}.elementor-social-icon-medium{background-color:#00ab6b}.elementor-social-icon-meetup{background-color:#ec1c40}.elementor-social-icon-mixcloud{background-color:#273a4b}.elementor-social-icon-odnoklassniki{background-color:#f4731c}.elementor-social-icon-pinterest{background-color:#bd081c}.elementor-social-icon-product-hunt{background-color:#da552f}.elementor-social-icon-reddit{background-color:#ff4500}.elementor-social-icon-rss{background-color:#f26522}.elementor-social-icon-shopping-cart{background-color:#4caf50}.elementor-social-icon-skype{background-color:#00aff0}.elementor-social-icon-slideshare{background-color:#0077b5}.elementor-social-icon-snapchat{background-color:#fffc00}.elementor-social-icon-soundcloud{background-color:#f80}.elementor-social-icon-spotify{background-color:#2ebd59}.elementor-social-icon-stack-overflow{background-color:#fe7a15}.elementor-social-icon-steam{background-color:#00adee}.elementor-social-icon-stumbleupon{background-color:#eb4924}.elementor-social-icon-telegram{background-color:#2ca5e0}.elementor-social-icon-thumb-tack{background-color:#1aa1d8}.elementor-social-icon-tripadvisor{background-color:#589442}.elementor-social-icon-tumblr{background-color:#35465c}.elementor-social-icon-twitch{background-color:#6441a5}.elementor-social-icon-twitter{background-color:#1da1f2}.elementor-social-icon-viber{background-color:#665cac}.elementor-social-icon-vimeo{background-color:#1ab7ea}.elementor-social-icon-vk{background-color:#45668e}.elementor-social-icon-weibo{background-color:#dd2430}.elementor-social-icon-weixin{background-color:#31a918}.elementor-social-icon-whatsapp{background-color:#25d366}.elementor-social-icon-wordpress{background-color:#21759b}.elementor-social-icon-xing{background-color:#026466}.elementor-social-icon-yelp{background-color:#af0606}.elementor-social-icon-youtube{background-color:#cd201f}.elementor-social-icon-500px{background-color:#0099e5}.elementor-shape-rounded .elementor-icon.elementor-social-icon{border-radius:10%}.elementor-shape-circle .elementor-icon.elementor-social-icon{border-radius:50%}
+                                    </style>
+                                    <div class="elementor-social-icons-wrapper elementor-grid">
+                                        <span class="elementor-grid-item">
+                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-whatsapp elementor-repeater-item-e89563b" href="https://api.whatsapp.com/send?phone=553336211307" target="_blank">
+                                                <span class="elementor-screen-only">Whatsapp</span>
+                                                <i class="fab fa-whatsapp"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script type="rocketlazyloadscript">
+		(function () {
+			var c = document.body.className;
+			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+			document.body.className = c;
+		})();
+        </script>
+        <link
+            data-minify="1"
+            rel="stylesheet"
+            id="elementor-post-251-css"
+            href="https://autoescoladestaque.com.br/wp-content/cache/min/1/wp-content/uploads/elementor/css/post-251.css?ver=1709067310"
+            media="all"
+        >
+        <link
+            rel="stylesheet"
+            id="e-animations-css"
+            href="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/lib/animations/animations.min.css?ver=3.19.0"
+            media="all"
+        >
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/woocommerce/assets/js/sourcebuster/sourcebuster.min.js?ver=8.6.1" id="sourcebuster-js-js"></script>
+        <script id="wc-order-attribution-js-extra">
+var wc_order_attribution = {"params":{"lifetime":1.0000000000000000818030539140313095458623138256371021270751953125e-5,"session":30,"ajaxurl":"https:\/\/autoescoladestaque.com.br\/wp-admin\/admin-ajax.php","prefix":"wc_order_attribution_","allowTracking":true},"fields":{"source_type":"current.typ","referrer":"current_add.rf","utm_campaign":"current.cmp","utm_source":"current.src","utm_medium":"current.mdm","utm_content":"current.cnt","utm_id":"current.id","utm_term":"current.trm","session_entry":"current_add.ep","session_start_time":"current_add.fd","session_pages":"session.pgs","session_count":"udata.vst","user_agent":"udata.uag"}};
+        </script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/woocommerce/assets/js/frontend/order-attribution.min.js?ver=8.6.1" id="wc-order-attribution-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/form-masks-for-elementor/assets/lib/jquery.mask.js?ver=1.6.3" id="fme-jquery-mask-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/form-masks-for-elementor/assets/js/elementor-mask.js?ver=1.6.3" id="fme-mask-js"></script>
+        <script type="rocketlazyloadscript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+        </script>
+        <script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/finalizar-compra\/|\/carrinho\/|\/minha-conta\/|\/wc-api\/v(.*)|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/autoescoladestaque.com.br","onHoverDelay":"100","rateThrottle":"3"};
+        </script>
+        <script type="rocketlazyloadscript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+        </script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/themes/hello-elementor/assets/js/hello-frontend.min.js?ver=3.0.1" id="hello-theme-frontend-js"></script>
+        <script id="happy-elementor-addons-js-extra">
+var HappyLocalize = {"ajax_url":"https:\/\/autoescoladestaque.com.br\/wp-admin\/admin-ajax.php","nonce":"6c25d965e3","pdf_js_lib":"https:\/\/autoescoladestaque.com.br\/wp-content\/plugins\/happy-elementor-addons\/assets\/vendor\/pdfjs\/lib"};
+        </script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/happy-elementor-addons/assets/js/happy-addons.min.js?ver=3.10.2" id="happy-elementor-addons-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor-pro/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.2.1" id="smartmenus-js"></script>
+        <script id="wc-cart-fragments-js-extra">
+var wc_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_6c646de5a65003981aaea163ef6a7a73","fragment_name":"wc_fragments_6c646de5a65003981aaea163ef6a7a73","request_timeout":"5000"};
+        </script>
+        <script
+            type="rocketlazyloadscript"
+            src="https://autoescoladestaque.com.br/wp-content/plugins/woocommerce/assets/js/frontend/cart-fragments.min.js?ver=8.6.1"
+            id="wc-cart-fragments-js"
+            defer
+            data-wp-strategy="defer"
+        ></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.19.0" id="elementor-pro-webpack-runtime-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.19.0" id="elementor-webpack-runtime-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.19.0" id="elementor-frontend-modules-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+        <script type="rocketlazyloadscript" id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+        </script>
+        <script type="rocketlazyloadscript" id="elementor-pro-frontend-js-before">
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/autoescoladestaque.com.br\/wp-admin\/admin-ajax.php","nonce":"55298aa23b","urls":{"assets":"https:\/\/autoescoladestaque.com.br\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"https:\/\/autoescoladestaque.com.br\/wp-json\/"},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"}},"woocommerce":{"menu_cart":{"cart_page_url":"https:\/\/autoescoladestaque.com.br\/carrinho\/","checkout_page_url":"https:\/\/autoescoladestaque.com.br\/finalizar-compra\/","fragments_nonce":"1519578ec3"}},"facebook_sdk":{"lang":"pt_BR","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/autoescoladestaque.com.br\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+        </script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.19.0" id="elementor-pro-frontend-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2" id="elementor-waypoints-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3" id="jquery-ui-core-js"></script>
+        <script type="rocketlazyloadscript" id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Compartilhar no Facebook","shareOnTwitter":"Compartilhar no Twitter","pinIt":"Fixar","download":"Baixar","downloadImage":"Baixar imagem","fullscreen":"Tela cheia","zoom":"Zoom","share":"Compartilhar","playVideo":"Reproduzir v\u00eddeo","previous":"Anterior","next":"Pr\u00f3ximo","close":"Fechar","a11yCarouselWrapperAriaLabel":"Carrossel | Rolagem horizontal: Setas para esquerda e direita","a11yCarouselPrevSlideMessage":"Slide anterior","a11yCarouselNextSlideMessage":"Pr\u00f3ximo slide","a11yCarouselFirstSlideMessage":"Este \u00e9 o primeiro slide","a11yCarouselLastSlideMessage":"Este \u00e9 o \u00faltimo slide","a11yCarouselPaginationBulletMessage":"Ir para o slide"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Dispositivos m\u00f3veis no modo retrato","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Dispositivos m\u00f3veis no modo paisagem","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet no modo retrato","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet no modo paisagem","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Notebook","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Tela ampla (widescreen)","value":2400,"default_value":2400,"direction":"min","is_enabled":false}}},"version":"3.19.0","is_static":false,"experimentalFeatures":{"e_optimized_assets_loading":true,"e_optimized_css_loading":true,"additional_custom_breakpoints":true,"theme_builder_v2":true,"hello-theme-header-footer":true,"block_editor_assets_optimize":true,"ai-layout":true,"landing-pages":true,"e_image_loading_optimization":true,"e_global_styleguide":true,"page-transitions":true,"notes":true,"form-submissions":true,"e_scroll_snap":true},"urls":{"assets":"https:\/\/autoescoladestaque.com.br\/wp-content\/plugins\/elementor\/assets\/"},"swiperClass":"swiper-container","settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description","woocommerce_notices_elements":[],"hello_header_logo_type":"logo","hello_header_menu_layout":"horizontal","hello_footer_logo_type":"logo"},"post":{"id":876,"title":"Compre%20Online%20Black%20Friday%20%E2%80%93%20Autoescola%20Destaque","excerpt":"","featuredImage":false}};
+        </script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.19.0" id="elementor-frontend-js"></script>
+        <script type="rocketlazyloadscript" src="https://autoescoladestaque.com.br/wp-content/plugins/elementor-pro/assets/js/elements-handlers.min.js?ver=3.19.0" id="pro-elements-handlers-js"></script>
+        <script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)
+        </script>
+        <script data-no-minify="1" async src="https://autoescoladestaque.com.br/wp-content/plugins/wp-rocket/assets/js/lazyload/16.1/lazyload.min.js"></script>
+        <script>function lazyLoadThumb(e){var t='<img loading="lazy" loading="lazy" data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img loading="lazy" src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.dataset.query.length?'':'&'+this.dataset.query;e.setAttribute("src",t.replace("ID",this.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>
+    </body>
+</html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1731261014 -->
